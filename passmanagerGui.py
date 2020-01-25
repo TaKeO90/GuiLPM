@@ -15,7 +15,7 @@ import sys , sqlite3 , hashlib , shutil ,re ,os, pyperclip
 
 
 
-#Todo Create a TAB for generating secure passwords
+
 
 ## Main Menu Window ## 
 
@@ -34,9 +34,6 @@ class Menu(QWidget):
 		self.userDB_folder = "./main_cred_db"
 		self.initUI()
 
-	#def closeEvent(self,*args,**kwargs):
-		#super(Menu,self).closeEvent(*args,**kwargs)
-		#print("window Closed")
 
 
 	def initUI(self):
@@ -57,10 +54,12 @@ class Menu(QWidget):
 
 		b0 = QPushButton("REGISTER",self)
 		#b0.setGeometry(300,250,150,80)
+		b0.setStyleSheet("color:white")
 		b0.clicked.connect(self.registerclicked)
 
 		b1 = QPushButton("LOGIN",self)
 		#b1.setGeometry(300,270,150,80)
+		b1.setStyleSheet("color:white")
 		b1.clicked.connect(self.loginclicked)
 		
 
@@ -176,27 +175,8 @@ class Register(QWidget):
 
 		self.setLayout(grid)
 
-
-
-
-	#def get_user(self,username):
-		#self.cursor.execute("SELECT USERNAME FROM users WHERE USERNAME = '%s' "%(username))
-		#queryuser = self.cursor.fetchone()
-		#if queryuser is not None : 
-			#return queryuser[0]
-		#else : 
-			#return []
-
-	#def get_email(self,email):
-		#self.cursor.execute("SELECT EMAIL FROM users WHERE EMAIL='%s' " %(email))
-		#queryemail = self.cursor.fetchone()
-		#if queryemail is not None :
-			#return queryemail[0]
-		#else : 
-			#return []
 	
 	def registration_process(self):
-		# TODO Create for each New User a separate Main creds db Where the Master password is stored
 
 		# Hashing the password with SHA256
 		password_H = hashlib.sha256(bytes(self.password_reg,('utf-8')))
@@ -281,6 +261,7 @@ class Login(QWidget):
 		loglabel.setFont(font)
 
 		b = QPushButton("return")
+		b.setStyleSheet("color:white")
 		b.clicked.connect(self.returnclicked)
 
 		
@@ -308,6 +289,7 @@ class Login(QWidget):
 
 		BrButton = QPushButton("Browse",self)
 		BrButton.clicked.connect(self.BrowseFiles)
+		BrButton.setStyleSheet("color:white")
 
 
 		
@@ -318,6 +300,7 @@ class Login(QWidget):
 		
 		loginButton = QPushButton("Login",self)
 		loginButton.clicked.connect(self.get_loggedin)
+		loginButton.setStyleSheet("color:white")
 
 		grid = QGridLayout()
 		grid.addWidget(b,0,0,alignment=Qt.AlignLeft)
@@ -684,9 +667,6 @@ class Credentials(QWidget):
 
 
 	def messageConf(self):
-		#resultMessage = QMessageBox.question(self,"Message","Sucessfully saved your Data",QMessageBox.Ok)# Qmessage box here
-		#if resultMessage == QMessageBox.Ok :
-			#self.update_Window()
 		msgBox = QMessageBox()
 		msgBox.setIcon(QMessageBox.Information)
 		msgBox.setText("successfully saved")
