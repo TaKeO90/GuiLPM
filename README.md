@@ -2,8 +2,7 @@
 # GUILPM
 
 ![](https://imgur.com/7HjsreN)
-![](https://imgur.com/a/v5wNfL7)
-![](https://imgur.com/a/TcFZtxf)
+![](https://imgur.com/0bdcJUh)
 
 
 
