@@ -11,7 +11,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5 import QtCore, QtGui
 from PyQt5.uic import loadUi
-import sys , sqlite3 , hashlib , shutil ,re ,os, pyperclip
+import sys , sqlite3 , hashlib , shutil ,re ,os, pyperclip,time
 
 
 
@@ -46,20 +46,17 @@ class Menu(QWidget):
 
 
 		label.setText(text)
-		#label.setAlignment(QtCore.Qt.AlignCenter)
 		label.setStyleSheet("color:purple")
 
 		font = QFont("Times",34,QFont.Bold)
 		label.setFont(font)
 
 		b0 = QPushButton("REGISTER",self)
-		#b0.setGeometry(300,250,150,80)
-		b0.setStyleSheet("color:white")
+		b0.setStyleSheet("color:white;background-color:black")
 		b0.clicked.connect(self.registerclicked)
 
 		b1 = QPushButton("LOGIN",self)
-		#b1.setGeometry(300,270,150,80)
-		b1.setStyleSheet("color:white")
+		b1.setStyleSheet("color:white;background-color:black")
 		b1.clicked.connect(self.loginclicked)
 		
 
@@ -97,27 +94,23 @@ class Register(QWidget):
 
 		#Button to get back to main menu Screen 
 		b = QPushButton("Return",self)
-		#b.setGeometry(0,0,m.ReturnButton_Width,m.ReturnButton_length)
 		b.clicked.connect(self.returnclicked)
+		b.setStyleSheet("color:white;background-color:black")
 
 		#Label to indicate that this page is for registration 
 		R = QLabel(self)
 		R.setText("REGISTER")
-		#R.setGeometry(300,70,250,150)
 		R.setStyleSheet("font:29pt;color:purple")
 		font = QFont("Times",34,QFont.Bold)
 		R.setFont(font)
 
-
 		#Label for indicating that we need a username from the user
 		l = QLabel(self)
 		l.setText("Username: ")
-		#l.setGeometry(m.CenterLabel_left,m.CenterLabel_Down,95,80)
 		l.setStyleSheet("font:11pt;color:purple")
 
 		#Label for password field 
 		l0 = QLabel(self)
-		#l0.setGeometry(m.CenterLabel_left,(m.CenterLabel_Down+60),95,50)
 		l0.setText("Password: ")
 		l0.setStyleSheet("font:11pt;color:purple")
 
@@ -125,12 +118,10 @@ class Register(QWidget):
 		email = QLabel(self)
 		email.setText("Email: ")
 		email.setStyleSheet("font:11pt;color:purple")
-		#email.setGeometry(m.CenterLabel_left,(m.CenterLabel_Down+120),95,50)
 
 		#Form to get the username
 		self.username_field = QLineEdit("",self)
 		self.username_field.setStyleSheet("font:11pt;background-color:white;color:black")
-		#self.username_field.setGeometry(m.EntryLeftPosition,(m.CenterLabel_Down+15),270,40)
 
 		#Form to get the password 
 		self.password = QLineEdit(self)
@@ -145,11 +136,10 @@ class Register(QWidget):
 
 		#Submit Button 
 		b0 = QPushButton("Register",self)
-		#b0.setGeometry((m.EntryLeftPosition+310),(m.CenterLabel_Down+180),100,60)
 		b0.clicked.connect(self.get_register)
+		b0.setStyleSheet("background-color:black;color:white")
 
-		#Bind return key with registeration fuction
-
+		
 		self.username_field.returnPressed.connect(self.get_register)
 		self.email.returnPressed.connect(self.get_register)
 		self.password.returnPressed.connect(self.get_register)
@@ -157,7 +147,6 @@ class Register(QWidget):
 
 		#Create a Label for showing messages
 		self.succ_l = QLabel(self)
-		#self.succ_l.setGeometry(220,(m.CenterLabel_Down+180),300,310)
 		self.succ_l.setStyleSheet('color:green')
 
 		# Add grid layout 
@@ -261,7 +250,7 @@ class Login(QWidget):
 		loglabel.setFont(font)
 
 		b = QPushButton("return")
-		b.setStyleSheet("color:white")
+		b.setStyleSheet("color:white;background-color:black")
 		b.clicked.connect(self.returnclicked)
 
 		
@@ -289,7 +278,7 @@ class Login(QWidget):
 
 		BrButton = QPushButton("Browse",self)
 		BrButton.clicked.connect(self.BrowseFiles)
-		BrButton.setStyleSheet("color:white")
+		BrButton.setStyleSheet("color:white;background-color:black")
 
 
 		
@@ -300,7 +289,7 @@ class Login(QWidget):
 		
 		loginButton = QPushButton("Login",self)
 		loginButton.clicked.connect(self.get_loggedin)
-		loginButton.setStyleSheet("color:white")
+		loginButton.setStyleSheet("color:white;background-color:black")
 
 		grid = QGridLayout()
 		grid.addWidget(b,0,0,alignment=Qt.AlignLeft)
@@ -403,23 +392,21 @@ class Credentials(QWidget):
 
 		#Qtabs here 
 		self.tabs = QTabWidget() #Main tab 
-		# 1st tab is for inserting credentials into user db
-		#self.tab1 = QWidget()
-		# 2nd tab for showing social sites creds
+		
+		# 1st tab for showing social sites creds
 		self.tab2 = QWidget()
-		# 3rd tab for showing email creds
+		# 2nd tab for showing email creds
 		self.tab3 = QWidget()
-		# 4th tab for showing finance sites creds
+		# 3rd tab for showing finance sites creds
 		self.tab4 = QWidget()
-		# 5th tab for showing shopping sites creds
+		# 4th tab for showing shopping sites creds
 		self.tab5 = QWidget()
-		# 6th tab for other creds
+		# 5th tab for other creds
 		self.tab6 = QWidget()
-		# 7th tab for generating password 
+		# 6th tab for generating password 
 		self.tab7 = QWidget()
 
 
-		#self.tabs.addTab(self.tab1,"Save Your Credentials")
 		self.tabs.addTab(self.tab2,"Social")
 		self.tabs.addTab(self.tab3,"Email")
 		self.tabs.addTab(self.tab4,"finance")
@@ -744,13 +731,14 @@ def appExec():
 	C = Crypt()
 	L = Login()
 	app.exec_()
-	try : 
+	try :
 		# encrypting db
 		key = C.load_key(L.NEW_KEY_PATH[0],s.get_current_user())
 		C.encrypt(f"User{s.get_current_user()}.db",key)
+		time.sleep(2)
 		C.encrypt(f"./main_cred_db/{s.get_current_user()}.db",key)
-		print("[+] Credential DATABASE encrypted !") 
-		#Remove session file 
+		print("[+] Credential DATABASE encrypted !")
+		#Remove session file
 		path = os.path.join("./session",s.get_current_user())
 		print("[+] Closing this session ==> ",s.get_current_user())
 		os.remove(path)
